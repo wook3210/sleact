@@ -19,7 +19,7 @@ import { Users } from './Users';
 
 @Index('name', ['name'], { unique: true })
 @Index('url', ['url'], { unique: true })
-@Index('OwnerId', ['ownerId'], {})
+@Index('OwnerId', ['OwnerId'], {})
 @Entity({ schema: 'sleact', name: 'workspaces' })
 export class Workspaces {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
@@ -41,31 +41,31 @@ export class Workspaces {
   deletedAt: Date | null;
 
   @Column('int', { name: 'OwnerId', nullable: true })
-  ownerId: number | null;
+  OwnerId: number | null;
 
-  @OneToMany(() => Channels, (channels) => channels.workspace)
-  channels: Channels[];
+  @OneToMany(() => Channels, (channels) => channels.Workspace)
+  Channels: Channels[];
 
-  @OneToMany(() => DMs, (dms) => dms.workspace)
-  dms: DMs[];
+  @OneToMany(() => DMs, (dms) => dms.Workspace)
+  DMs: DMs[];
 
-  @OneToMany(() => Mentions, (mentions) => mentions.workspace)
-  mentions: Mentions[];
+  @OneToMany(() => Mentions, (mentions) => mentions.Workspace)
+  Mentions: Mentions[];
 
   @OneToMany(
     () => WorkspaceMembers,
-    (workspacemembers) => workspacemembers.workspace,
+    (workspacemembers) => workspacemembers.Workspace,
     { cascade: ['insert'] },
   )
-  workspaceMembers: WorkspaceMembers[];
+  WorkspaceMembers: WorkspaceMembers[];
 
-  @ManyToOne(() => Users, (users) => users.workspaces, {
+  @ManyToOne(() => Users, (users) => users.Workspaces, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'OwnerId', referencedColumnName: 'id' }])
-  owner: Users;
+  Owner: Users;
 
-  @ManyToMany(() => Users, (users) => users.workspaces)
-  members: Users[];
+  @ManyToMany(() => Users, (users) => users.Workspaces)
+  Members: Users[];
 }

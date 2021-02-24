@@ -15,7 +15,7 @@ import { ChannelMembers } from './Channelmembers';
 import { Users } from './Users';
 import { Workspaces } from './Workspaces';
 
-@Index('WorkspaceId', ['workspaceId'], {})
+@Index('WorkspaceId', ['WorkspaceId'], {})
 @Entity({ schema: 'sleact' })
 export class Channels {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
@@ -39,23 +39,23 @@ export class Channels {
   updatedAt: Date;
 
   @Column('int', { name: 'WorkspaceId', nullable: true })
-  workspaceId: number | null;
+  WorkspaceId: number | null;
 
-  @OneToMany(() => ChannelChats, (channelchats) => channelchats.channel)
-  channelChats: ChannelChats[];
+  @OneToMany(() => ChannelChats, (channelchats) => channelchats.Channel)
+  ChannelChats: ChannelChats[];
 
-  @OneToMany(() => ChannelMembers, (channelMembers) => channelMembers.channel, {
+  @OneToMany(() => ChannelMembers, (channelMembers) => channelMembers.Channel, {
     cascade: ['insert'],
   })
-  channelMembers: ChannelMembers[];
+  ChannelMembers: ChannelMembers[];
 
-  @ManyToMany(() => Users, (users) => users.channels)
-  members: Users[];
+  @ManyToMany(() => Users, (users) => users.Channels)
+  Members: Users[];
 
-  @ManyToOne(() => Workspaces, (workspaces) => workspaces.channels, {
+  @ManyToOne(() => Workspaces, (workspaces) => workspaces.Channels, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'WorkspaceId', referencedColumnName: 'id' }])
-  workspace: Workspaces;
+  Workspace: Workspaces;
 }

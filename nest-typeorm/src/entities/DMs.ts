@@ -11,9 +11,9 @@ import {
 import { Workspaces } from './Workspaces';
 import { Users } from './Users';
 
-@Index('WorkspaceId', ['workspaceId'], {})
-@Index('dms_ibfk_2', ['senderId'], {})
-@Index('dms_ibfk_3', ['receiverId'], {})
+@Index('WorkspaceId', ['WorkspaceId'], {})
+@Index('dms_ibfk_2', ['SenderId'], {})
+@Index('dms_ibfk_3', ['ReceiverId'], {})
 @Entity({ schema: 'sleact', name: 'dms' })
 export class DMs {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
@@ -29,32 +29,32 @@ export class DMs {
   updatedAt: Date;
 
   @Column('int', { name: 'WorkspaceId', nullable: true })
-  workspaceId: number | null;
+  WorkspaceId: number | null;
 
   @Column('int', { name: 'SenderId', nullable: true })
-  senderId: number | null;
+  SenderId: number | null;
 
   @Column('int', { name: 'ReceiverId', nullable: true })
-  receiverId: number | null;
+  ReceiverId: number | null;
 
-  @ManyToOne(() => Workspaces, (workspaces) => workspaces.dms, {
+  @ManyToOne(() => Workspaces, (workspaces) => workspaces.DMs, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'WorkspaceId', referencedColumnName: 'id' }])
-  workspace: Workspaces;
+  Workspace: Workspaces;
 
-  @ManyToOne(() => Users, (users) => users.dms, {
+  @ManyToOne(() => Users, (users) => users.DMs, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'SenderId', referencedColumnName: 'id' }])
-  sender: Users;
+  Sender: Users;
 
-  @ManyToOne(() => Users, (users) => users.dms2, {
+  @ManyToOne(() => Users, (users) => users.DMs2, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
   @JoinColumn([{ name: 'ReceiverId', referencedColumnName: 'id' }])
-  receiver: Users;
+  Receiver: Users;
 }
